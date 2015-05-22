@@ -6,7 +6,7 @@
 /*   By: bcrespin <bcrespin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 13:15:47 by bcrespin          #+#    #+#             */
-/*   Updated: 2015/05/22 14:25:12 by bcrespin         ###   ########.fr       */
+/*   Updated: 2015/05/22 14:31:18 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 #include <stdio.h>
 
-void		init_philo(t_philo *philo)
+void		init_philo(t_philo *philo, int i)
 {
+	philo->id = i;
 	philo->etats = THINK;
 	philo->life = MAX_LIFE;
 	philo->bagu_r = 0;
@@ -39,7 +40,10 @@ int is_one_dead(t_table table)
 	while (i < NB_PHILO)
 	{
 		if (table.philo[i].life == 0)
+		{
+			printf("philo nr %d dead \n", table.philo[i].id);
 			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -56,13 +60,14 @@ int			main()
 	while (i < NB_PHILO)
 	{
 		pthread_mutex_init(&(table.stick[i]), NULL);
-		init_philo(&(table.philo[i]));
+		init_philo(&(table.philo[i]), i);
 		i++;
 	}
 	while (is_one_dead(table) == 0 && t > 0)
 	{
 		pthread_create(&(table.philo[i].thread), NULL, check_state, (void*)&table);
 		pthread_join(table.philo[i].thread, NULL);
+		table.philo[1].life--;
 		printf("%d\n", t);
 		t--;
 	}

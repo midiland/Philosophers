@@ -6,7 +6,7 @@
 /*   By: bcrespin <bcrespin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 13:16:01 by bcrespin          #+#    #+#             */
-/*   Updated: 2015/05/22 14:25:10 by bcrespin         ###   ########.fr       */
+/*   Updated: 2015/05/22 14:26:41 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum		e_etat
 
 typedef struct		s_philo
 {
+	int				id;
 	int				etats;
 	int				life;
 	int				bagu_r;
