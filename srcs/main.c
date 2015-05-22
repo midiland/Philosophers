@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/22 16:14:41 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/22 16:58:06 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ int			main()
 		pthread_create(&(table[i].philo->thread), NULL, check_state, (void*)&(table[i]));
 		i++;
 	}
-	while (1)
+	while (table[0].time < TIMEOUT)
 	{
 		sleep(1);
 		i = 0;
-		while (table[0].time < TIMEOUT && i < NB_PHILO)
+		while (i < NB_PHILO)
 		{
 
 			ft_printf("life = %d, time = %d, place = %d\n", table[i].philo->life, table[i].time, table[i].philo->place);
