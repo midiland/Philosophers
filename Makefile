@@ -6,7 +6,7 @@
 #    By: apantiez <apantiez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 15:21:48 by apantiez          #+#    #+#              #
-#    Updated: 2015/05/22 10:50:46 by apantiez         ###   ########.fr        #
+#    Updated: 2015/05/22 13:00:56 by apantiez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 		\033[33;32mok\033[33;0m]"
 
 %.o : %.c
-	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@
+	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@ -pthread
 
 clean:
 	@rm -rf $(OBJ)
