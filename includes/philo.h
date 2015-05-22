@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:56:20 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/22 11:16:16 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/22 11:55:08 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # define REST_T 20
 # define THINK_T 20
 # define TIMEOUT 200
+# define  MUTEX pthread_mutex_t
+
+typedef enum		e_etat
+{
+	EAT, REST, THINK
+}					t_etat;
 
 typedef struct		s_philo
 {
@@ -28,14 +34,12 @@ typedef struct		s_philo
 	int				life;
 	int				bagu_r;
 	int				bagu_l;
-	struct s_philo	*right;
-	struct s_philo	*left;
 }					t_philo;
 
 typedef struct		s_table
 {
 	t_philo			philo[NB_PHILO];
-	pthread_mutex_t	stick[NB_PHILO];
+	MUTEX	*stick[NB_PHILO];
 }					t_table;
 
 
