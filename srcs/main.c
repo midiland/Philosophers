@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/22 11:57:10 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/22 13:05:19 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 void		init_philo(t_philo *philo)
 {
-	philo->etats = THINK;
-
+	philo->etats = REST;    // rest c'est mieux
+	philo->life = MAX_LIFE;
+	philo->bagu_r = 1;
+	philo->bagu_l = 1;
+	philo->pthr = NULL;
 }
 
 

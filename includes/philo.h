@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:56:20 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/22 11:55:08 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/22 13:05:17 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ typedef struct		s_philo
 	int				life;
 	int				bagu_r;
 	int				bagu_l;
+	pthread_t		pthr;
 }					t_philo;
 
 typedef struct		s_table
 {
 	t_philo			philo[NB_PHILO];
-	MUTEX	*stick[NB_PHILO];
+	MUTEX			stick[NB_PHILO];
 }					t_table;
 
 
