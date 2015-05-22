@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/22 14:28:58 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/22 15:51:00 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ void		init_philo(t_philo *philo, int place)
 
 void		*check_state(void *table)
 {
-	while (((t_table *)table)->philo->life > 0 && ((t_table *)table)->time < TIMEOUT)
+	while (1)
 	{
-		usleep(400);
-		((t_table *)table)->time += 1;
-		((t_table *)table)->philo->life -= 1;
-		ft_printf("life = %d, time = %d, place = %d\n", ((t_table *)table)->philo->life, ((t_table *)table)->time, ((t_table *)table)->philo->place);
+		;//usleep(1000);
 	}
 	pthread_exit(NULL);
 	return (table);
@@ -47,16 +44,31 @@ int			main()
 	t_table table[NB_PHILO];
 
 	i = 0;
-
 	while (i < NB_PHILO)
 	{
 		pthread_mutex_init(&(stick[i]), NULL);
 		init_philo(&philo[i], i);
 		table[i].philo = &philo[i];
 		table[i].time = 0;
-		pthread_create(&(table[i].philo->thread), NULL, check_state, (void*)&(table[i]));
-		pthread_join(table[i].philo->thread, NULL);
 		i++;
+	}
+	i = 0;
+	while (i < NB_PHILO)
+	{
+		pthread_create(&(table[i].philo->thread), NULL, check_state, (void*)&(table[i]));
+		i++;
+	}
+	while (1)
+	{
+		sleep(1);
+		i = 0;
+		while (table[0].time < TIMEOUT && i < NB_PHILO)
+		{
+
+			ft_printf("life = %d, time = %d, place = %d\n", table[i].philo->life, table[i].time, table[i].philo->place);
+			table[i].time += 1;
+			table[i++].philo->life -= 1;
+		}
 	}
 	return (0);
 }
