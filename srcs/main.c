@@ -6,12 +6,14 @@
 /*   By: bcrespin <bcrespin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 13:15:47 by bcrespin          #+#    #+#             */
-/*   Updated: 2015/05/22 13:51:04 by bcrespin         ###   ########.fr       */
+/*   Updated: 2015/05/22 14:25:12 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "libft.h"
+
+#include <stdio.h>
 
 void		init_philo(t_philo *philo)
 {
@@ -31,23 +33,38 @@ void		*check_state(void *table)
 	return (table);
 }
 
+int is_one_dead(t_table table)
+{
+	int i = 0;
+	while (i < NB_PHILO)
+	{
+		if (table.philo[i].life == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int			main()
 {
 	int		i;
+	int		t;
 	t_table table;
 
 	i = 0;
-
+	t = TIMEOUT;
 	while (i < NB_PHILO)
 	{
 		pthread_mutex_init(&(table.stick[i]), NULL);
 		init_philo(&(table.philo[i]));
-		pthread_create(&(table.philo[i].thread), NULL, check_state, (void*)&table);
-		pthread_join(table.philo[i].thread, NULL);
 		i++;
 	}
-
-
+	while (is_one_dead(table) == 0 && t > 0)
+	{
+		pthread_create(&(table.philo[i].thread), NULL, check_state, (void*)&table);
+		pthread_join(table.philo[i].thread, NULL);
+		printf("%d\n", t);
+		t--;
+	}
 	return (0);
 }
