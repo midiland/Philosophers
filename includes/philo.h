@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bcrespin <bcrespin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/05/22 10:56:20 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/22 13:05:17 by bcrespin         ###   ########.fr       */
+/*   Created: 2015/05/22 13:16:01 by bcrespin          #+#    #+#             */
+/*   Updated: 2015/05/22 13:16:10 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct		s_philo
 	int				life;
 	int				bagu_r;
 	int				bagu_l;
-	pthread_t		pthr;
+	pthread_t		thread;
 }					t_philo;
 
 typedef struct		s_table
