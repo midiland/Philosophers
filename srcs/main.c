@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/22 14:28:58 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/22 14:38:01 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		init_philo(t_philo *philo, int place)
 
 void		*check_state(void *table)
 {
-	while (((t_table *)table)->philo->life > 0 && ((t_table *)table)->time < TIMEOUT)
+	while (((t_table *)table)->philo->life > 0 /*&& ((t_table *)table)->time < TIMEOUT*/)
 	{
 		usleep(400);
 		((t_table *)table)->time += 1;
@@ -55,8 +55,9 @@ int			main()
 		table[i].philo = &philo[i];
 		table[i].time = 0;
 		pthread_create(&(table[i].philo->thread), NULL, check_state, (void*)&(table[i]));
-		pthread_join(table[i].philo->thread, NULL);
+		sleep(1);
 		i++;
 	}
+	pthread_join(table[0].philo->thread, NULL);
 	return (0);
 }
