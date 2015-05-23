@@ -17,10 +17,10 @@
 
 # define NB_PHILO 7
 # define MAX_LIFE 100
-# define EAT_T 20
-# define REST_T 20
-# define THINK_T 20
-# define TIMEOUT 10
+# define EAT_T 5
+# define REST_T 2
+# define THINK_T 1
+# define TIMEOUT 100
 # define  MUTEX pthread_mutex_t
 
 typedef enum		e_etat
@@ -41,6 +41,7 @@ typedef struct		s_philo
 typedef struct		s_table
 {
 	t_philo			*philo;
+	int				ok;
 	unsigned int	time;
 }					t_table;
 
