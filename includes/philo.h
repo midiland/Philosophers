@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:56:20 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/25 15:59:00 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/25 17:16:04 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <time.h>
 
 # define NB_PHILO 7
-# define MAX_LIFE 10
+# define MAX_LIFE 50
 # define EAT_T 3
 # define REST_T 5
 # define THINK_T 2
