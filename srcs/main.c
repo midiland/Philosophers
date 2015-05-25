@@ -30,7 +30,7 @@ void		wait_second(t_table *tab)
 		else
 		{
 			time_a = time(NULL);
-			usleep(50);
+			usleep(20);
 		}
 	}
 }
@@ -86,12 +86,18 @@ void		*check_state(void *table)
 		bag_next = tab->philo->place + 1;
 	while ((tab->time_deb + TIMEOUT) > tab->time_gen && tab->philo->life > 0)
 	{
+	if (tab->philo->life != MAX_LIFE && get_stick(bag_next))
+			tab->philo->bagu_r = 1;
+		if (tab->philo->life != MAX_LIFE && get_stick(tab->philo->place))
+			tab->philo->bagu_l = 1;
+		if (tab->philo->life <= 5)
+			tab->philo_next->neighbor_eat = 1;
+		else
+			tab->philo_next->neighbor_eat = 0;
 		tab->philo->time = time(NULL);
 		if (have_stick(table) == 1)
 		{
 			tab->philo->etats = THINK;
-			wait_time(tab, THINK_T);
-			tab->philo->life -= THINK_T;
 			if (tab->philo->bagu_l == 1)
 				pthread_mutex_unlock(&(stick[tab->philo->place]));
 			else if (tab->philo->bagu_r == 1)
@@ -100,6 +106,8 @@ void		*check_state(void *table)
 			tab->philo->bagu_r = 0;
 			if (tab->philo->neighbor_eat == 1)
 				usleep(5);
+			wait_time(tab, THINK_T);
+			tab->philo->life -= THINK_T;
 		}
 		else if (have_stick(table) == 2)
 		{
@@ -110,9 +118,6 @@ void		*check_state(void *table)
 			pthread_mutex_unlock(&(stick[bag_next]));
 			tab->philo->bagu_l = 0;
 			tab->philo->bagu_r = 0;
-			tab->philo->etats = REST;
-			wait_time(tab, REST_T);
-			tab->philo->life -= REST_T;
 		}
 		else
 		{
@@ -134,14 +139,6 @@ void		*check_state(void *table)
 			if (!(pthread_mutex_lock(&(stick[tab->philo->place]))))
 					tab->philo->bagu_l = 1;	
 		}*/
-		if (get_stick(bag_next))
-			tab->philo->bagu_r = 1;
-		if (get_stick(tab->philo->place))
-			tab->philo->bagu_l = 1;
-		if (tab->philo->life <= 7)
-			tab->philo_next->neighbor_eat = 1;
-		else
-			tab->philo_next->neighbor_eat = 0;
 	}
 	pthread_exit(NULL);
 	return (table);
@@ -190,9 +187,9 @@ int			main()
 		while (i < NB_PHILO)
 		{
 			table[i].time_gen = time(NULL);
-			ft_printf("life = %d, time = %d, place = %d, etats = %d\n", table[i].philo->life, (table[i].time_gen - table[i].time_deb), table[i].philo->place, table[i].philo->etats);
+			ft_printf("life = %d, time = %d, place = %d, etat = %d, stick right = %d, stick left = %d\n", table[i].philo->life, (table[i].time_gen - table[i].time_deb), table[i].philo->place, table[i].philo->etats, table[i].philo->bagu_r, table[i].philo->bagu_l);
 	//		table[i].philo->life -= 1;
-			if (table[i].philo->life <= 0)
+			if (table[i].philo->life <= 0 && table[i].philo->etats != EAT)
 				life = 1;
 			i++;
 		}
