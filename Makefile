@@ -6,7 +6,7 @@
 #    By: apantiez <apantiez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 15:21:48 by apantiez          #+#    #+#              #
-#    Updated: 2015/05/22 13:00:56 by apantiez         ###   ########.fr        #
+#    Updated: 2015/05/25 09:00:43 by apantiez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,19 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C ./libft
-	@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(LIBFT) -I ./includes -lpthread
-
+	@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(LIBFT) -I ./includes
 	@echo "[\033[33;32mCompilation \033[33;34m$(NAME) \
 		\033[33;32mok\033[33;0m]"
 
-%.o : %.c
+linux: fclean
 	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@ -lpthread
+	@make -C ./libft
+	@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(LIBFT) -I ./includes -lpthread
+
+
+
+%.o : %.c
+	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@
 
 clean:
 	@rm -rf $(OBJ)
