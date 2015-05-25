@@ -30,15 +30,14 @@ $(NAME): $(OBJ)
 	@echo "[\033[33;32mCompilation \033[33;34m$(NAME) \
 		\033[33;32mok\033[33;0m]"
 
-linux: fclean
-	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@ -lpthread
+linux: $(OBJ)
 	@make -C ./libft
 	@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(LIBFT) -I ./includes -lpthread
 
 
 
 %.o : %.c
-	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@
+	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@ -lpthread
 
 clean:
 	@rm -rf $(OBJ)

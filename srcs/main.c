@@ -43,13 +43,11 @@ void		init_philo(t_philo *philo, int place)
 	philo->bagu_r = 0;
 	philo->bagu_l = 1;
 	philo->place = place;
+	philo->neighbor_eat = 0;
 }
 
 void		wait_time(t_table *table, int t)
 {
-	time_t	curent_time;
-
-	curent_time = table->time_gen;
 	while (1)
 	{
 		if (table->time_gen >= (table->philo->time + t))
@@ -67,6 +65,13 @@ int			have_stick(t_table *table)
 		return (1);
 	else
 		return (0);
+}
+
+int		get_stick(int nb_stick)
+{
+	if (!pthread_mutex_trylock(&stick[nb_stick]))
+		return (1);
+	return (0);
 }
 
 void		*check_state(void *table)
@@ -87,9 +92,14 @@ void		*check_state(void *table)
 			tab->philo->etats = THINK;
 			wait_time(tab, THINK_T);
 			tab->philo->life -= THINK_T;
-			pthread_mutex_unlock(&(stick[tab->philo->place]));
+			if (tab->philo->bagu_l == 1)
+				pthread_mutex_unlock(&(stick[tab->philo->place]));
+			else if (tab->philo->bagu_r == 1)
+				pthread_mutex_unlock(&(stick[bag_next]));
 			tab->philo->bagu_l = 0;
 			tab->philo->bagu_r = 0;
+			if (tab->philo->neighbor_eat == 1)
+				usleep(5);
 		}
 		else if (have_stick(table) == 2)
 		{
@@ -98,8 +108,11 @@ void		*check_state(void *table)
 			tab->philo->life = MAX_LIFE;
 			pthread_mutex_unlock(&(stick[tab->philo->place]));
 			pthread_mutex_unlock(&(stick[bag_next]));
-			((t_table *)table)->philo->bagu_l = 0;
-			((t_table *)table)->philo->bagu_r = 0;
+			tab->philo->bagu_l = 0;
+			tab->philo->bagu_r = 0;
+			tab->philo->etats = REST;
+			wait_time(tab, REST_T);
+			tab->philo->life -= REST_T;
 		}
 		else
 		{
@@ -107,7 +120,7 @@ void		*check_state(void *table)
 			wait_time(tab, REST_T);
 			tab->philo->life -= REST_T;
 		}
-		if (tab->philo->life <= 5)
+/*		if (tab->philo->life <= 5)
 		{
 			if (!(pthread_mutex_lock(&(stick[bag_next]))))
 				tab->philo->bagu_r = 1;
@@ -120,14 +133,15 @@ void		*check_state(void *table)
 				tab->philo->bagu_r = 1;
 			if (!(pthread_mutex_lock(&(stick[tab->philo->place]))))
 					tab->philo->bagu_l = 1;	
-		}
+		}*/
+		if (get_stick(bag_next))
+			tab->philo->bagu_r = 1;
+		if (get_stick(tab->philo->place))
+			tab->philo->bagu_l = 1;
+		if (tab->philo->life <= 7)
+			tab->philo_next->neighbor_eat = 1;
 		else
-		{
-			if (!(pthread_mutex_trylock(&(stick[bag_next]))))
-				tab->philo->bagu_r = 1;
-			if (!(pthread_mutex_trylock(&(stick[tab->philo->place]))))
-					tab->philo->bagu_l = 1;
-		}
+			tab->philo_next->neighbor_eat = 0;
 	}
 	pthread_exit(NULL);
 	return (table);
@@ -154,6 +168,10 @@ int			main()
 		lock_stick(stick, i);
 		init_philo(&philo[i], i);
 		table[i].philo = &philo[i];
+		if (i == (NB_PHILO - 1))
+			table[i].philo_next = &philo[0];
+		else
+			table[i].philo_next = &philo[i + 1];
 		table[i].time_deb = time(NULL);
 		i++;
 	}

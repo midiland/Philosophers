@@ -17,20 +17,21 @@
 #include <time.h>
 
 # define NB_PHILO 7
-# define MAX_LIFE 30
-# define EAT_T 10
-# define REST_T 5
-# define THINK_T 3
-# define TIMEOUT 50
+# define MAX_LIFE 10
+# define EAT_T 1
+# define REST_T 1
+# define THINK_T 1
+# define TIMEOUT 60
 # define  MUTEX pthread_mutex_t
 
 typedef enum		e_etat
 {
-	EAT, REST, THINK
+	REST, THINK, EAT
 }					t_etat;
 
 typedef struct		s_philo
 {
+	int				neighbor_eat;
 	time_t			time;
 	int				etats;
 	int				life;
@@ -43,6 +44,7 @@ typedef struct		s_philo
 typedef struct		s_table
 {
 	t_philo			*philo;
+	t_philo			*philo_next;
 	int				ok;
 	time_t			time_gen;
 	time_t			time_deb;
