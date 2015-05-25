@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/25 17:34:55 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/25 18:06:28 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,27 @@ void		*check_state(void *table)
 			wait_time(tab, REST_T);
 			tab->philo->life -= REST_T;
 		}
-		if (!(pthread_mutex_trylock(&(stick[bag_next]))))
-			tab->philo->bagu_r = 1;
-		if (!(pthread_mutex_trylock(&(stick[tab->philo->place]))))
-				tab->philo->bagu_l = 1;
+		if (tab->philo->life <= 5)
+		{
+			if (!(pthread_mutex_lock(&(stick[bag_next]))))
+				tab->philo->bagu_r = 1;
+			if (!(pthread_mutex_lock(&(stick[tab->philo->place]))))
+					tab->philo->bagu_l = 1;	
+		}
+		else if (tab->philo->life < 10 && ((tab->philo->time) % 2))
+		{
+			if (!(pthread_mutex_trylock(&(stick[bag_next]))))
+				tab->philo->bagu_r = 1;
+			if (!(pthread_mutex_lock(&(stick[tab->philo->place]))))
+					tab->philo->bagu_l = 1;	
+		}
+		else
+		{
+			if (!(pthread_mutex_trylock(&(stick[bag_next]))))
+				tab->philo->bagu_r = 1;
+			if (!(pthread_mutex_trylock(&(stick[tab->philo->place]))))
+					tab->philo->bagu_l = 1;
+		}
 	}
 	pthread_exit(NULL);
 	return (table);
@@ -156,6 +173,7 @@ int			main()
 		{
 			table[i].time_gen = time(NULL);
 			ft_printf("life = %d, time = %d, place = %d, etats = %d\n", table[i].philo->life, (table[i].time_gen - table[i].time_deb), table[i].philo->place, table[i].philo->etats);
+	//		table[i].philo->life -= 1;
 			if (table[i].philo->life <= 0)
 				life = 1;
 			i++;

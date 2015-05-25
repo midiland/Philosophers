@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:56:20 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/25 17:16:04 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/25 18:12:01 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include <time.h>
 
 # define NB_PHILO 7
-# define MAX_LIFE 50
-# define EAT_T 3
+# define MAX_LIFE 30
+# define EAT_T 10
 # define REST_T 5
-# define THINK_T 2
+# define THINK_T 3
 # define TIMEOUT 50
 # define  MUTEX pthread_mutex_t
 
