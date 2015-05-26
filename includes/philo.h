@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:56:20 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/25 18:12:01 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/26 11:01:52 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_table
 	int				ok;
 	time_t			time_gen;
 	time_t			time_deb;
+	int				brack;
 }					t_table;
 
 

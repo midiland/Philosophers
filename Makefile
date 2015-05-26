@@ -6,7 +6,7 @@
 #    By: apantiez <apantiez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 15:21:48 by apantiez          #+#    #+#              #
-#    Updated: 2015/05/25 09:00:43 by apantiez         ###   ########.fr        #
+#    Updated: 2015/05/26 09:34:00 by apantiez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ linux: $(OBJ)
 
 
 %.o : %.c
-	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@ -lpthread
+	@$(CC) -c $(CFLAGS) -I ./includes $< -o $@
 
 clean:
 	@rm -rf $(OBJ)
