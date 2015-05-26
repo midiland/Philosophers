@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/26 11:00:03 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/26 11:26:36 by bcrespin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 t_philo			philo[NB_PHILO];
 MUTEX			stick[NB_PHILO];
-
 
 void		wait_second(t_table *tab)
 {
@@ -87,8 +86,8 @@ void		*check_state(void *table)
 	while (tab->brack)//(tab->time_deb + TIMEOUT) > tab->time_gen && tab->philo->life >= 0)
 	{
 		tab->philo->time = time(NULL);
-	if (tab->philo->life != MAX_LIFE && get_stick(bag_next))
-			tab->philo->bagu_r = 1;
+		if (tab->philo->life != MAX_LIFE && get_stick(bag_next))
+				tab->philo->bagu_r = 1;
 		if (tab->philo->life != MAX_LIFE && get_stick(tab->philo->place))
 			tab->philo->bagu_l = 1;
 		if (tab->philo->life <= 5)
@@ -141,7 +140,6 @@ void		*check_state(void *table)
 		}
 	}
 	sleep(5);
-	pthread_exit(NULL);
 	return (table);
 }
 
@@ -159,8 +157,6 @@ void		print_etat(t_table *tab)
 	else if (tab->philo->etats == REST)
 		ft_printf("\033[32m --  REST -- \033[0m\n");
 }
-
-
 
 int			main()
 {
