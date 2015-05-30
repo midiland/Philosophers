@@ -6,7 +6,7 @@
 #    By: apantiez <apantiez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 15:21:48 by apantiez          #+#    #+#              #
-#    Updated: 2015/05/30 15:07:46 by apantiez         ###   ########.fr        #
+#    Updated: 2015/05/30 15:11:22 by apantiez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ all: $(NAME)
 
 $(LIB_GLFW):
 	git submodule init
+	git submodule update
 	cd glfw && cmake .
 	make -C glfw
 
