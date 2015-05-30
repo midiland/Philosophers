@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/30 15:53:11 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/30 16:06:56 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,20 +94,25 @@ int			main()
 	life = 0;
 	init_glfw(&gen);
 	table = gen.table;
-	while (i < NB_PHILO)
+	while (!glfwWindowShouldClose(gen.window))
 	{
-		pthread_mutex_init(&(stick[i]), NULL);
-		lock_stick(stick, i);
-		init_philo(&g_philo[i], i);
-		table[i].philo = &g_philo[i];
-		table[i].brack = 1;
-		if (i == (NB_PHILO - 1))
-			table[i].philo_next = &g_philo[0];
-		else
-			table[i].philo_next = &g_philo[i + 1];
-		table[i].time_deb = time(NULL);
-		i++;
-	}
-	sub_main(table, life, i);
+		glfwPollEvents();
+		usleep(100);
+	}			
+	/*while (i < NB_PHILO)
+	  {
+	  pthread_mutex_init(&(stick[i]), NULL);
+	  lock_stick(stick, i);
+	  init_philo(&g_philo[i], i);
+	  table[i].philo = &g_philo[i];
+	  table[i].brack = 1;
+	  if (i == (NB_PHILO - 1))
+	  table[i].philo_next = &g_philo[0];
+	  else
+	  table[i].philo_next = &g_philo[i + 1];
+	  table[i].time_deb = time(NULL);
+	  i++;
+	  }
+	  sub_main(table, life, i);*/
 	return (0);
 }

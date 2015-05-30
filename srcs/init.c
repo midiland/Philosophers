@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/30 15:42:26 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/30 16:01:34 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/30 16:03:27 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void key_callback(GLFWwindow *window,\
 	(void)action;
 	(void)key;
 	(void)window;
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
 /*	game = uf_get_game();
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
