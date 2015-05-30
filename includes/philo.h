@@ -6,16 +6,19 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:56:20 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/27 18:08:39 by bcrespin         ###   ########.fr       */
+/*   Updated: 2015/05/30 15:46:50 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <pthread.h>
-#include <time.h>
+# include <GLFW/glfw3.h>
+# include <pthread.h>
+# include <time.h>
 
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 800
 # define NB_PHILO 7
 # define MAX_LIFE 5
 # define EAT_T 1
@@ -53,6 +56,12 @@ typedef struct		s_table
 	int				brack;
 }					t_table;
 
+typedef struct		s_gen
+{
+	t_table			table[NB_PHILO];
+	GLFWwindow		*window;
+}					t_gen;
+
 void				wait_second(t_table *tab);
 void				wait_time(t_table *table, int t);
 int					get_stick(int nb_stick);
@@ -60,5 +69,6 @@ int					have_stick(t_table *table);
 void				drop_think_s(t_table *tab, int bag_next);
 void				lock_stick(MUTEX *stick, int i);
 void				*check_state(void *table);
+void				init_glfw(t_gen *gen);
 
 #endif

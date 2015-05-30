@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/30 14:57:14 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/05/30 15:53:11 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,14 @@ void		sub_main(t_table *table, int life, int i)
 int			main()
 {
 	int		i;
-	t_table table[NB_PHILO];
+	t_table *table;
 	int		life;
+	t_gen	gen;
 
 	i = 0;
 	life = 0;
+	init_glfw(&gen);
+	table = gen.table;
 	while (i < NB_PHILO)
 	{
 		pthread_mutex_init(&(stick[i]), NULL);
