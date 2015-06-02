@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:50:12 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/30 16:06:56 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/06/02 10:40:35 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 t_philo		g_philo[NB_PHILO];
 MUTEX		stick[NB_PHILO];
+
 
 void		init_philo(t_philo *g_philo, int place)
 {
@@ -83,6 +84,69 @@ void		sub_main(t_table *table, int life, int i)
 	}
 }
 
+
+float		get_cos_sin(int i, int cos)
+{
+	static float	tab[10][2] 		= {
+
+		{ 1.000000, 0.000000 }, { 0.766044, 0.642788 }, { 0.173648, 0.984808 },
+		{ -0.500000, 0.866025 }, { -0.939693, 0.342020 },
+		{ -0.939693, -0.342020 }, { -0.500000, -0.866025 },
+		{ 0.173648, -0.984808 }, { 0.766044, -0.642788 },
+		{ 1.000000, -0.000000 }
+	};
+	if (cos)
+		return (tab[i][0]);
+	else
+		return (tab[i][1]);
+}
+
+void		draw_table(t_gen *gen)
+{
+	int		i;
+	float	xy[2];
+	float	c[2];
+	(void)gen;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0.175f, 0.175f, 0.175f);
+	i = 0;
+	while (i <= 9)
+	{
+		c[0] = 0.5;
+		c[1] = 0.5;
+		xy[0] = (float)100 / ((float)WIN_WIDTH / 4)
+			* get_cos_sin(i, 1);
+		xy[1] = (float)100 / ((float)WIN_WIDTH / 4)
+			* get_cos_sin(i, 0);
+		glVertex2f(xy[0] , xy[1]);
+		i++;
+	}
+	glEnd();
+}
+
+
+
+static void		do_gl_stuff(t_gen *gen)
+{
+	int	width;
+	int	height;
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
+	glfwGetFramebufferSize(gen->window, &width, &height);
+}
+
+
+static void		draw_stuff(t_gen *gen)
+{
+	//	draw_board(game);
+	//	draw_blocks(g	ame);
+	draw_table(gen);
+	//	draw_score(game->score, 1.8f, -1.6f);
+	//	draw_score(game->life, 0.2f, -1.6f);
+}
+
 int			main()
 {
 	int		i;
@@ -96,7 +160,10 @@ int			main()
 	table = gen.table;
 	while (!glfwWindowShouldClose(gen.window))
 	{
+		do_gl_stuff(&gen);
+		draw_stuff(&gen);
 		glfwPollEvents();
+		glfwSwapBuffers(gen.window);
 		usleep(100);
 	}			
 	/*while (i < NB_PHILO)
