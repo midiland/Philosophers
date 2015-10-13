@@ -6,7 +6,7 @@
 #    By: apantiez <apantiez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 15:21:48 by apantiez          #+#    #+#              #
-#    Updated: 2015/05/30 15:49:22 by apantiez         ###   ########.fr        #
+#    Updated: 2015/10/13 10:25:23 by apantiez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC =	srcs/newmain.c \
 		srcs/stick.c \
 		srcs/thread.c \
 		srcs/init.c \
+		srcs/draw_score.c
 
 OBJ = $(SRC:.c=.o)
 

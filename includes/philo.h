@@ -6,7 +6,7 @@
 /*   By: apantiez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/22 10:56:20 by apantiez          #+#    #+#             */
-/*   Updated: 2015/05/30 15:46:50 by apantiez         ###   ########.fr       */
+/*   Updated: 2015/10/13 12:43:09 by apantiez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@
 # define H_LIFE ((MAX_LIFE / 2) * 1.5)
 # define CRIT_LIFE ((MAX_LIFE / 2))
 # define  MUTEX pthread_mutex_t
+
+typedef enum		e_digital
+{
+	DIGIT_TOP, DIGIT_TOP_LEFT, DIGIT_TOP_RIGHT, DIGIT_MID, DIGIT_BOT,
+	DIGIT_BOT_RIGHT, DIGIT_BOT_LEFT, DIGIT_EMPTY
+}					t_digital;
+
 
 typedef enum		e_etat
 {
@@ -70,5 +77,7 @@ void				drop_think_s(t_table *tab, int bag_next);
 void				lock_stick(MUTEX *stick, int i);
 void				*check_state(void *table);
 void				init_glfw(t_gen *gen);
+int					draw_score(int life, float x, float y);
+void				draw_stuff(t_gen *gen, int i);
 
 #endif
